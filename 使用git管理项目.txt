@@ -1,0 +1,65 @@
+1、安装git
+2、git config --global user.name "Your Name"			// --global表示你这台机器上所有的Git仓库都会使用这个配置
+   git config --global user.email "email@example.com"
+3、创建版本库
+   一、创建文件夹
+   二、打开git bash执行git init
+4、添加文件到该仓库暂存区中
+   git add 'filename'									// 使用git add .将所有文件添加到该仓库暂存区中
+5、将文件提交到本地仓库
+   git commit -m "Initial commit"						// -m后面是本次提交的说明
+6、将项目推送到远程仓库
+   一、添加远程仓库：git remote add origin+仓库地址		// git remote -v查看远程连接信息
+   二、推送：git push -u origin master​
+7、从远程仓库克隆
+   git clone+仓库地址
+8、分支管理
+   git branch				// 查看当前分支
+   git checkout -b dev		// 创建分支dev并切换到dev
+   git branch dev			// 创建分支dev
+   git checkout dev			// 切换到dev分支
+   git merge dev			// 将dev分支合并到当前分支
+   git branch -d dev		// 删除dev分支
+9、冲突解决
+   一、创建分支dev，并修改其分支README.md的最后一行，然后提交
+   二、修改主分支的README.md的最后一行，然后提交
+   三、将dev合并到主分支，出现冲突
+   解决：
+   一、git status查看起冲突文件
+   二、进入文件，<<<<<<<，=======，>>>>>>>分别标记不同分支内容
+   三、将其修改后再提交	
+10、bug分支
+   场景：一个分支未编辑完成不能提交，而此时需要修改其他bug
+   一、git stash将分支保存
+   二、git checkout master切换到需要修改的分支(假设为master)
+   三、git checkout -b issue创建一个分支，并在上面修改、合并、删除
+   四、git stash list查看是否存在工作空间
+   五、恢复：git stash apply不删除stash，或者git stash pop删除stash
+11、未合并时强行销毁分支
+   git branch -D <name>
+12、协作开发
+   从远程仓库克隆时Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin
+   查看远程库信息：git remote，详细信息：git remote -v
+   一、推送分支到远程库：git push origin <branch-name>
+   二、若推送失败，首先尝试git pull试图合并，如果提示no tracking information，表示本地分支和远程分支的链接关系没有创建，
+	   用git branch --set-upstream-to <branch-name> origin/<branch-name>创建
+   三、若合并失败，表示发生冲突	，解决冲突重新提交
+13、标签
+   使用git tag查看所有标签
+   一、切换到需要打标签的分支：git checkout <branch-name>
+   二、打标签：git tag <tagname>
+   三、查看标签信息：git show <tagname>
+   四、删除本地标签：git tag -d <tagname>	删除远程标签：git push origin :refs/tags/<tagname>
+   五、推送标签到远程：$ git push origin <tagname>	// git push origin --tags 一次推送全部标签
+   
+某些命令使用：
+git status				// 仓库当前的状态
+git diff <file>		 	// 查看文件修改信息
+git log 				// 从最近到最远的提交日志
+git log --graph			// 分支合并图
+git reset --hard HEAD 	// 回到上个版本，可指定版本号(将HEAD改成对应版本)
+git reflog 				// 每一次命令
+git checkout --<file>	// 让这个文件回到最近一次git commit或git add时的状态。
+git reset HEAD <file>	// 把暂存区的修改撤销掉
+git rm <file>			// 删掉文件(需要git commit)
+git rebase				// 将历史记录变成一条直线(因为合并后在推送会出现分叉)
